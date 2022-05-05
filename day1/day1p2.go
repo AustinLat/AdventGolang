@@ -3,21 +3,23 @@ package main
 
 import (
     "os"
-    "fmt"
+   "fmt"
     "bufio"
     "strconv"
 )
 
-func countIncreases(number, lastNumber *int) bool {
-    if *number > *lastNumber {
-        *lastNumber = *number
-        return true
+func shiftingDepths(depths []int) int {
+    count := 0
+    lastNumber := depths[0]+depths[1]+depths[2]
+    for i:=0; i<=len(depths)-3; i++ {
+        total := depths[i]+depths[i+1]+depths[i+2]
+        if total > lastNumber {
+            count++
+        }
+        lastNumber = total
     }
-    *lastNumber = *number
-    return false
+    return count
 }
-
-//func shiftingDepths()
 
 func main() {
     input, err := os.Open("input")
@@ -30,16 +32,7 @@ func main() {
     depths := []int{}
     for scanner.Scan() {
         number, _ := strconv.Atoi(scanner.Text())
-//        if countIncreases(&number, &lastNumber) { count++ }
         depths = append(depths, number)
     }
-
-    count := 0
-    lastNumber := depths[0]+depths[1]+depths[2]
-    for i := 0; i == len(depths)-3; i++ {
-        total := depths[i]+depths[i+1]+depths[+2]
-        if total > lastNumber { count++}
-        lastNumber = total
-    }
-    fmt.Println(count)
+    fmt.Println(shiftingDepths(depths))
 }
