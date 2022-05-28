@@ -19,13 +19,33 @@ func main() {
         line := scanner.Text()
         list = append(list, line)
     }
+    fmt.Println(powerConsumption(list))
+}
 
+
+func lifeSupport(data []string) int64 {
+    one := 0
+    zero := 0
+    for i, line := range data {
+        if string(line[i]) == "0" {
+            zero++
+        } else {
+            one++
+        }
+    }
+    for i, line := range data {
+        if one > zero {
+            if 
+}
+
+
+func powerConsumption(data []string) int64 {
     var gamma string
     var epsilon string
     for i, _ := range [12]int{} {
         one := 0
         zero := 0
-        for _, line := range list {
+        for _, line := range data {
             if string(line[i]) == "0" {
                 zero++
             } else {
@@ -50,5 +70,5 @@ func main() {
             fmt.Println(err)
         }
 
-    fmt.Println(gammaInt * epsilonInt)
+    return gammaInt * epsilonInt
 }
