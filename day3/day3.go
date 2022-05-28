@@ -3,7 +3,7 @@ package main
 import (
     "os"
     "bufio"
-//    "strconv"
+    "strconv"
     "fmt"
 )
 
@@ -14,18 +14,22 @@ func main() {
     }
     defer input.Close()
     scanner := bufio.NewScanner(input)
+    list := []string{}
+    for scanner.Scan() {
+        line := scanner.Text()
+        list = append(list, line)
+    }
 
     var gamma string
     var epsilon string
-    for i := range [12]int{} {
+    for i, _ := range [12]int{} {
         one := 0
         zero := 0
-        for scanner.Scan() {
-            line := scanner.Text()
+        for _, line := range list {
             if string(line[i]) == "0" {
                 zero++
             } else {
-                one ++
+                one++
             }
         }
         if one > zero {
@@ -36,5 +40,15 @@ func main() {
             epsilon += "1"
         }
     }
-    fmt.Println(gamma)
+
+    gammaInt, err := strconv.ParseInt(gamma, 2, 32)
+        if err != nil {
+            fmt.Println(err)
+        }
+    epsilonInt, err := strconv.ParseInt(epsilon, 2, 32)
+        if err != nil {
+            fmt.Println(err)
+        }
+
+    fmt.Println(gammaInt * epsilonInt)
 }
